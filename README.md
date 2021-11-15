@@ -57,8 +57,8 @@ Installed:
 + Копируем туда rpm пакет
 ```[root@client ~]# cp /root/rpmbuild/RPMS/x86_64/nginx-1.14.1-1.el7_4.ngx.x86_64.rpm /usr/share/nginx/html/repo/```
 + Скачаем еще доп пакет mc
-```[root@client ~]# wget https://rpmfind.net/linux/centos/7.9.2009/os/x86_64/Packages/mc-4.8.7-11.el7.x86_64.rpm -O /usr/share/nginx/html/repo/mc-4.8.7-11.el7.x86_64.rpm
-```
+```[root@client ~]# wget https://rpmfind.net/linux/centos/7.9.2009/os/x86_64/Packages/mc-4.8.7-11.el7.x86_64.rpm -O /usr/share/nginx/html/repo/mc-4.8.7-11.el7.x86_64.rpm```
+
 + Инициализируем репозиторий 
 ```[root@client ~]# createrepo /usr/share/nginx/html/repo/
 
