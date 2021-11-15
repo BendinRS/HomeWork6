@@ -39,7 +39,24 @@ rpmbuild -bb rpmbuild/SPECS/nginx.spec
 yum localinstall -y \
 rpmbuild/RPMS/x86_64/nginx-1.14.1-1.el7_4.ngx.x86_64.rpm
 systemctl start nginx
-
+mkdir /usr/share/nginx/html/repo
+cp /root/rpmbuild/RPMS/x86_64/nginx-1.14.1-1.el7_4.ngx.x86_64.rpm /usr/share/nginx/html/repo/
+wget https://rpmfind.net/linux/centos/7.9.2009/os/x86_64/Packages/mc-4.8.7-11.el7.x86_64.rpm -O /usr/share/nginx/html/repo/mc-4.8.7-11.el7.x86_64.rpm
+createrepo /usr/share/nginx/html/repo/
+rm -rf /etc/nginx/conf.d
+cd /etc/nginx/
+git clone https://github.com/BendinRS/conf.d.git
+cd ~
+nginx -s reload
+cat >> /etc/yum.repos.d/otus.repo << EOF
+[otus]
+name=otus-linux
+baseurl=http://localhost/repo
+gpgcheck=0
+enabled=1
+EOF
+yum repolist enabled | grep otus
+yum install mc -y
 
 
                        SHELL
