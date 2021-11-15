@@ -23,23 +23,25 @@ rpmdevtools \
 rpm-build \
 createrepo \
 yum-utils \
-gcc
+gcc \
+git
 wget https://nginx.org/packages/centos/7/SRPMS/nginx-1.14.1-1.el7_4.ngx.src.rpm
 rpm -i nginx-1.14.1-1.el7_4.ngx.src.rpm
 cd ~
 wget --no-check-certificate https://www.openssl.org/source/openssl-1.1.1l.tar.gz
 tar -xvf openssl-1.1.1l.tar.gz 
 yum-builddep rpmbuild/SPECS/nginx.spec -y
+rm -rf /root/rpmbuild/SPECS
+cd /root/rpmbuild/
+git clone https://github.com/BendinRS/SPECS.git
+cd ~
+rpmbuild -bb rpmbuild/SPECS/nginx.spec
+yum localinstall -y \
+rpmbuild/RPMS/x86_64/nginx-1.14.1-1.el7_4.ngx.x86_64.rpm
+systemctl start nginx
 
 
 
-
-#  mkdir /mnt/upload
-#  mount -t nfs 192.168.1.100:/var/upload /mnt/upload
-# touch /mnt/upload/Bendin
-# mkdir /mnt/upload1
-# mount -t nfs 192.168.1.100:/var/upload1 /mnt/upload1 -o udp
-# touch /mnt/upload1/BEndin
                        SHELL
 
 
