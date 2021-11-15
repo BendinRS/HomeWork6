@@ -16,6 +16,24 @@ config.vm.define "client" do |client|
   end
  client.vm.provision "shell", inline: <<-SHELL
 sudo su
+yum install -y \
+redhat-lsb-core \
+wget \
+rpmdevtools \
+rpm-build \
+createrepo \
+yum-utils \
+gcc
+wget https://nginx.org/packages/centos/7/SRPMS/nginx-1.14.1-1.el7_4.ngx.src.rpm
+rpm -i nginx-1.14.1-1.el7_4.ngx.src.rpm
+cd ~
+wget --no-check-certificate https://www.openssl.org/source/openssl-1.1.1l.tar.gz
+tar -xvf openssl-1.1.1l.tar.gz 
+yum-builddep rpmbuild/SPECS/nginx.spec -y
+
+
+
+
 #  mkdir /mnt/upload
 #  mount -t nfs 192.168.1.100:/var/upload /mnt/upload
 # touch /mnt/upload/Bendin
