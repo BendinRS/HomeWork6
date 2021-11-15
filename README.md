@@ -51,6 +51,34 @@ Installed:
 
 #### Создать свой репозиторий и разместить там ранее собранный RPM
 
++ Создадим там каталог repo в /usr/share/nginx/html
+[root@client ~]# mkdir /usr/share/nginx/html/repo
++ Копируем туда rpm пакет
+[root@client ~]# cp /root/rpmbuild/RPMS/x86_64/nginx-1.14.1-1.el7_4.ngx.x86_64.rpm /usr/share/nginx/html/repo/
++ Скачаем еще доп пакет mc
+[root@client ~]# wget https://rpmfind.net/linux/centos/7.9.2009/os/x86_64/Packages/mc-4.8.7-11.el7.x86_64.rpm -O /usr/share/nginx/html/repo/mc-4.8.7-11.el7.x86_64.rpm
++ Инициализируем репозиторий 
+[root@client ~]# createrepo /usr/share/nginx/html/repo/
+
+[root@client yum.repos.d]# cat >> /etc/yum.repos.d/otus.repo << EOF
+> [otus]
+> name=otus-linux
+> baseurl=http://localhost/repo
+> gpgcheck=0
+> enabled=1
+> EOF
+cat >> /etc/yum.repos.d/otus.repo << EOF
+[otus]
+name=otus-linux
+baseurl=http://localhost/repo
+gpgcheck=0
+enabled=1
+EOF
+yum repolist enabled | grep otus
+yum install mc -y
+
+
+
 
 
  
